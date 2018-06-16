@@ -12,14 +12,6 @@ def Backgroundinfosladen():
     URL = Informationen[0]
     return URL
 
-
-def Nutzerdatenladen():
-    Nutzerdaten = open('Nutzerdaten.txt', 'r')
-    Nutzerdaten1 = Nutzerdaten.read()
-    Nutzerdaten.close()
-    return Nutzerdaten1
-
-
 def Fragebogenabrufen(URL):
     Fragebogen = requests.get('{URL}/questions.json'.format(URL=URL))
     Fragebogen1 = Fragebogen.text
@@ -30,14 +22,16 @@ def Fragebogenabrufen(URL):
 
 
 
-
 def Antwortsenden(URL, Nutzerdaten1):
     Antworten = [Nutzerdaten1]
     Antwortsendung = requests.post('{URL}/api_scoring.php'.format(URL=URL),data=json.dumps(Antworten))
     return Antwortsendung.text
 def Namensendenspeichern(URL,Nutzerdaten1):
     Antworten = [Nutzerdaten1]
-    Name = 'Paulpaas'
+    #Name = 'Paulpaase'
+    Datei = open('Nutzerdaten.txt','r')
+    Name = Datei.read()
+    Datei.close()
     Sendung = requests.post('{URL}/api_scoring_save.php'.format(URL=URL),data={'name':Name,'response':json.dumps(Antworten)})
     return Sendung.text
 
