@@ -41,10 +41,8 @@ def Namensendenspeichern(URL,Nutzerdaten1):
     Sendung = requests.post('{URL}/api_scoring_save.php'.format(URL=URL),data={'name':Name,'response':json.dumps(Antworten)})
     return Sendung.text
 
-
 URL = Backgroundinfosladen()
 Nutzerdaten1 = Nutzerdatenladen()
 Fragebogen = Fragebogenabrufen(URL)
 Antwortsendung = Antwortsenden(URL,Nutzerdaten1)
-ScoreName = Namensendenspeichern(URL,Nutzerdaten1
-                                 )
+Punktestand = Namensendenspeichern(URL,Nutzerdaten1)
