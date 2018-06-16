@@ -20,9 +20,9 @@ def Nutzerdatenladen():
     return Nutzerdaten1
 
 
-def Fragebogenabrufen(URL,Nutzerdaten1):
+def Fragebogenabrufen(URL,  Nutzerdaten1):
     Fragebogen = requests.get('{URL}/questions.json'.format(URL=URL), data=Nutzerdaten1)
-    Fragebogen1 = str(Fragebogen)
+    Fragebogen1 = Fragebogen.text
     Fragebogendatei = open('Fragebogen.json','w')
     Fragebogendatei.write(Fragebogen1)
     Fragebogendatei.close()
@@ -43,4 +43,4 @@ URL = Backgroundinfosladen()
 Nutzerdaten1 = Nutzerdatenladen()
 Fragebogen = Fragebogenabrufen(URL,Nutzerdaten1)
 Antwortsendung = Antwortsenden(URL,Nutzerdaten1)
-print('FERTIG')
+
