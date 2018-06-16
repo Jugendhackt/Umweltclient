@@ -1,5 +1,6 @@
 import requests
 from socket import *
+import json
 
 
 def Backgroundinfosladen():
@@ -21,10 +22,13 @@ def Nutzerdatenladen():
 
 def Fragebogenabrufen(URL,Nutzerdaten1):
     Fragebogen = requests.get('{URL}/questions.json'.format(URL=URL), data=Nutzerdaten1)
+    Fragebogen1 = str(Fragebogen)
     Fragebogendatei = open('Fragebogen.json','w')
-    Fragebogendatei.write(Fragebogen)
+    Fragebogendatei.write(Fragebogen1)
     Fragebogendatei.close()
+    Fragebogendatei = open('Fragebogen.json','r')
     return Fragebogen.json()
+
 
 
 
