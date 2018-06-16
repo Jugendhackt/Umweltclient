@@ -8,10 +8,8 @@ def Backgroundinfosladen():
     for line in Backgroundinfo:
         Informationen.append(Backgroundinfo.readline().strip())
     Backgroundinfo.close()
-    IP = Informationen[0]
-    serverport = Informationen[1]
-    SERVER_PORT = int(serverport)
-    return IP, SERVER_PORT
+    URL = Informationen[0]
+    return URL
 
 
 def Nutzerdatenladen():
@@ -21,17 +19,16 @@ def Nutzerdatenladen():
     return Nutzerdaten1
 
 
-def Fragebogenabrufen(IP,SERVER_PORT,Nutzerdaten1):
-    Servermitteilung = requests.post('http://{IP}:{Port}'.format(IP=IP, Port=SERVER_PORT),
-                                     data=Nutzerdaten1)  # ToDo Ändern
-    return Servermitteilung.json()
+def Fragebogenabrufen(URL,Nutzerdaten1):
+    Fragebogen = requests.get('{URL}/questions.json'.format(URL=URL), data=Nutzerdaten1)
+    return Fragebogen.json()
 
 
-def Antwortsenden(IP,SERVER_PORT,Nutzerdaten1):
-    Servermitteilung = requests.post('http://{IP}:{Port}'.format(IP=IP, Port=SERVER_PORT), data=Nutzerdaten1)
+def Antwortsenden(URL, Nutzerdaten1):
+    Antwortsendung = requests.post('{URL}/response.json'.format(URL=URL), data=Nutzerdaten1) # ToDo Ändern
 
-IP,SERVER_PORT = Backgroundinfosladen()
+URL = Backgroundinfosladen()
 Nutzerdaten1 = Nutzerdatenladen()
-Servermitteilung = Fragebogenabrufen(IP,SERVER_PORT,Nutzerdaten1)
-Antwortsenden(IP,SERVER_PORT,Nutzerdaten1)
-
+Fragebogen = Fragebogenabrufen(URL,Nutzerdaten1)
+Antwortsendung = Antwortsenden(URL,Nutzerdaten1)
+print('FERTIG')
