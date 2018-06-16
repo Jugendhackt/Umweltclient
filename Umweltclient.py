@@ -20,8 +20,8 @@ def Nutzerdatenladen():
     return Nutzerdaten1
 
 
-def Fragebogenabrufen(URL,  Nutzerdaten1):
-    Fragebogen = requests.get('{URL}/questions.json'.format(URL=URL), data=Nutzerdaten1)
+def Fragebogenabrufen(URL):
+    Fragebogen = requests.get('{URL}/questions.json'.format(URL=URL))
     Fragebogen1 = Fragebogen.text
     Fragebogendatei = open('Fragebogen.json','w')
     Fragebogendatei.write(Fragebogen1)
@@ -33,14 +33,18 @@ def Fragebogenabrufen(URL,  Nutzerdaten1):
 
 def Antwortsenden(URL, Nutzerdaten1):
     Antworten = [Nutzerdaten1]
-    Antwortsendung = requests.post('{URL}/response.json'.format(URL=URL),data=json.dumps(Antworten))# ToDo Ändern
+    Antwortsendung = requests.post('{URL}/api_scoring.php'.format(URL=URL),data=json.dumps(Antworten))
     return Antwortsendung.text
-
-
+def Namensendenspeichern(URL,Nutzerdaten1):
+    Antworten = [Nutzerdaten1]
+    Name = 'Paulpaas'
+    Sendung = requests.post('{URL}/api_scoring_save.php'.format(URL=URL),data={'name':Name,'response':json.dumps(Antworten)})
+    return Sendung.text
 
 
 URL = Backgroundinfosladen()
 Nutzerdaten1 = Nutzerdatenladen()
-Fragebogen = Fragebogenabrufen(URL,Nutzerdaten1)
+Fragebogen = Fragebogenabrufen(URL)
 Antwortsendung = Antwortsenden(URL,Nutzerdaten1)
-
+ScoreName = Namensendenspeichern(URL,Nutzerdaten1
+                                 )
