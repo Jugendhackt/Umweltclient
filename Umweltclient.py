@@ -26,14 +26,17 @@ def Fragebogenabrufen(URL,Nutzerdaten1):
     Fragebogendatei = open('Fragebogen.json','w')
     Fragebogendatei.write(Fragebogen1)
     Fragebogendatei.close()
-    Fragebogendatei = open('Fragebogen.json','r')
     return Fragebogen.json()
 
 
 
 
 def Antwortsenden(URL, Nutzerdaten1):
-    Antwortsendung = requests.post('{URL}/response.json'.format(URL=URL),data=json.dumps(Nutzerdaten1))# ToDo Ändern
+    Antworten = [Nutzerdaten1]
+    Antwortsendung = requests.post('{URL}/response.json'.format(URL=URL),data=json.dumps(Antworten))# ToDo Ändern
+    return Antwortsendung.text
+
+
 
 
 URL = Backgroundinfosladen()
