@@ -36,10 +36,10 @@ def Namensendenspeichern(URL,Nutzerdaten1):
     Name = Datei.read()
     Datei.close()
     Sendung = requests.post('{URL}/api_scoring_save.php'.format(URL=URL),data={'name':Name,'response':json.dumps(Antworten)})
-    return Sendung.text
+    return Sendung.text,Name
 
-def Punktezahlvergleich(URl):
-   URL1 = 'https://jhffm01.uber.space/umweltserver/friends.php'
+def Punktezahlvergleich(URl,Name):
+   URL1 = 'https://jhffm01.uber.space/umweltserver/login.php?user='+str(Name)
    E = webbrowser.open(URL1)
    return E
 
