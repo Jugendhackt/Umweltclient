@@ -41,7 +41,7 @@ def Namensendenspeichern(URL,Nutzerdaten1):
 def Punktezahlvergleich(URl):
    URL1 = 'https://jhffm01.uber.space/umweltserver/friends.php'
    E = webbrowser.open(URL1)
-   return E,URL1
+   return E
 
 
 
@@ -49,6 +49,5 @@ URL = Backgroundinfosladen()
 Fragebogen = Fragebogenabrufen(URL)
 Antwortsendung = Antwortsenden(URL,Nutzerdaten1)
 Punktestand = Namensendenspeichern(URL,Nutzerdaten1)
-print(Punktestand)
 Scorerpunkt_User = str(Punktestand)
 Punktezahlvergleich(URL)
