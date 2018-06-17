@@ -32,7 +32,7 @@ def Antwortsenden(URL,Nutzerdaten1):
 def Namensendenspeichern(URL,Nutzerdaten1):
     Antworten = [Nutzerdaten1]
     #Name = 'Paulpaase'
-    Datei = open('Nutzerdaten.txt','r')
+    Datei = open('Nutzerdaten.txt','r',encoding= 'utf-8')
     Name = Datei.read()
     Datei.close()
     Sendung = requests.post('{URL}/api_scoring_save.php'.format(URL=URL),data={'name':Name,'response':json.dumps(Antworten)})
@@ -48,6 +48,6 @@ def Punktezahlvergleich(URl,Name):
 URL = Backgroundinfosladen()
 Fragebogen = Fragebogenabrufen(URL)
 Antwortsendung = Antwortsenden(URL,Nutzerdaten1)
-Punktestand = Namensendenspeichern(URL,Nutzerdaten1)
+Punktestand,Name = Namensendenspeichern(URL,Nutzerdaten1)
 Scorerpunkt_User = str(Punktestand)
-Punktezahlvergleich(URL)
+Punktezahlvergleich(URL,Name)
