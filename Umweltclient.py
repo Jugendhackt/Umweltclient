@@ -1,7 +1,10 @@
 import requests
 from socket import *
 import json
+import webbrowser
 
+Results = []
+Nutzerdaten1 = Results
 
 def Backgroundinfosladen():
     Backgroundinfo = open('Informationenback.txt', 'r')
@@ -22,7 +25,7 @@ def Fragebogenabrufen(URL):
 
 
 
-def Antwortsenden(URL, Nutzerdaten1):
+def Antwortsenden(URL,Nutzerdaten1):
     Antworten = [Nutzerdaten1]
     Antwortsendung = requests.post('{URL}/api_scoring.php'.format(URL=URL),data=json.dumps(Antworten))
     return Antwortsendung.text
@@ -35,8 +38,17 @@ def Namensendenspeichern(URL,Nutzerdaten1):
     Sendung = requests.post('{URL}/api_scoring_save.php'.format(URL=URL),data={'name':Name,'response':json.dumps(Antworten)})
     return Sendung.text
 
+def Punktezahlvergleich(URl):
+   URL1 = 'https://jhffm01.uber.space/umweltserver/friends.php'
+   E = webbrowser.open(URL1)
+   return E,URL1
+
+
+
 URL = Backgroundinfosladen()
-Nutzerdaten1 = Nutzerdatenladen()
 Fragebogen = Fragebogenabrufen(URL)
 Antwortsendung = Antwortsenden(URL,Nutzerdaten1)
 Punktestand = Namensendenspeichern(URL,Nutzerdaten1)
+print(Punktestand)
+Scorerpunkt_User = str(Punktestand)
+Punktezahlvergleich(URL)
